@@ -68,6 +68,7 @@ Community
 - [Go](https://github.com/craigpastro/pgmq-go)
 - [Elixir](https://github.com/v0idpwn/pgmq-elixir)
 - [Elixir + Broadway](https://github.com/v0idpwn/off_broadway_pgmq)
+- [Java (JDBC)](https://github.com/roy20021/pgmq-jdbc-client)
 - [Java (Spring Boot)](https://github.com/adamalexandru4/pgmq-spring)
 - [Kotlin JVM (JDBC)](https://github.com/vdsirotkin/pgmq-kotlin-jvm)
 - [Javascript (NodeJs)](https://github.com/Muhammad-Magdi/pgmq-js)
