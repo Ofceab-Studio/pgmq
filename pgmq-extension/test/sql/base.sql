@@ -31,8 +31,51 @@ SELECT * from pgmq.send('test_default_queue', '{"hello": "world"}');
 \set msg_id 1
 SELECT msg_id = :msg_id FROM pgmq.read('test_default_queue', 0, 1);
 
--- read message using conditional
-SELECT msg_id = :msg_id FROM pgmq.read('test_default_queue', 2, 1, '{"hello": "world"}');
+-- read message using conditional operators
+SELECT pgmq.create('test_conditional_queue');
+\set cond_msg1 1::bigint
+\set cond_msg2 2::bigint
+\set cond_msg3 3::bigint
+\set cond_msg4 4::bigint
+\set cond_msg5 5::bigint
+\set cond_msg6 6::bigint
+\set cond_msg7 7::bigint
+\set cond_msg8 8::bigint
+SELECT send = :cond_msg1 FROM pgmq.send('test_conditional_queue', '{"field": 1, "value": 2}');
+SELECT send = :cond_msg2 FROM pgmq.send('test_conditional_queue', '{"field": 2, "value": 4}');
+SELECT send = :cond_msg3 FROM pgmq.send('test_conditional_queue', '{"field": 3, "value": 10}');
+SELECT send = :cond_msg4 FROM pgmq.send('test_conditional_queue', '{"field": 1, "value": 1}');
+SELECT send = :cond_msg5 FROM pgmq.send('test_conditional_queue', '{"status": "active", "priority": 10}');
+SELECT send = :cond_msg6 FROM pgmq.send('test_conditional_queue', '{"status": "inactive", "priority": 5}');
+SELECT send = :cond_msg7 FROM pgmq.send('test_conditional_queue', '{"is_processed": true}');
+SELECT send = :cond_msg8 FROM pgmq.send('test_conditional_queue', '{"is_processed": false}');
+
+-- numeric greater than (vt=0 makes messages immediately available again)
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": ">", "value": 2}')) = ARRAY[:cond_msg2, :cond_msg3]::bigint[];
+
+-- numeric greater than or equal
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": ">=", "value": 4}')) = ARRAY[:cond_msg2, :cond_msg3]::bigint[];
+
+-- numeric less than
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "<", "value": 4}')) = ARRAY[:cond_msg1, :cond_msg4]::bigint[];
+
+-- numeric less than or equal
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "<=", "value": 2}')) = ARRAY[:cond_msg1, :cond_msg4]::bigint[];
+
+-- numeric equal
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "=", "value": 2}')) = ARRAY[:cond_msg1]::bigint[];
+
+-- numeric not equal (should return all messages except value=2)
+SELECT COUNT(*) >= 6 FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "!=", "value": 2}');
+
+-- string comparison
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "status", "operator": "=", "value": "active"}')) = ARRAY[:cond_msg5]::bigint[];
+
+-- string greater than (lexicographic)
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "status", "operator": ">", "value": "active"}')) = ARRAY[:cond_msg6]::bigint[];
+
+-- boolean comparison
+SELECT ARRAY(SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "is_processed", "operator": "=", "value": true}')) = ARRAY[:cond_msg7]::bigint[];
 
 -- set VT to 5 seconds
 SELECT vt > clock_timestamp() + '4 seconds'::interval
