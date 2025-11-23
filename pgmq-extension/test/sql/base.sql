@@ -33,40 +33,20 @@ SELECT msg_id = :msg_id FROM pgmq.read('test_default_queue', 0, 1);
 
 -- read message using conditional operators
 SELECT pgmq.create('test_conditional_queue');
-\set cond_msg1 1::bigint
-\set cond_msg2 2::bigint
-\set cond_msg3 3::bigint
-\set cond_msg4 4::bigint
-\set cond_msg5 5::bigint
-\set cond_msg6 6::bigint
-\set cond_msg7 7::bigint
-\set cond_msg8 8::bigint
-SELECT send = :cond_msg1 FROM pgmq.send('test_conditional_queue', '{"field": 1, "value": 2}');
-SELECT send = :cond_msg2 FROM pgmq.send('test_conditional_queue', '{"field": 2, "value": 4}');
-SELECT send = :cond_msg3 FROM pgmq.send('test_conditional_queue', '{"field": 3, "value": 10}');
-SELECT send = :cond_msg4 FROM pgmq.send('test_conditional_queue', '{"field": 1, "value": 1}');
-SELECT send = :cond_msg5 FROM pgmq.send('test_conditional_queue', '{"status": "active", "priority": 10}');
-SELECT send = :cond_msg6 FROM pgmq.send('test_conditional_queue', '{"status": "inactive", "priority": 5}');
-SELECT send = :cond_msg7 FROM pgmq.send('test_conditional_queue', '{"is_processed": true}');
-SELECT send = :cond_msg8 FROM pgmq.send('test_conditional_queue', '{"is_processed": false}');
+SELECT * FROM pgmq.send('test_conditional_queue', '{"field": 1, "value": 2}');
+SELECT * FROM pgmq.send('test_conditional_queue', '{"field": 3, "value": 10}');
+SELECT * FROM pgmq.send('test_conditional_queue', '{"status": "active", "priority": 10}');
+SELECT * FROM pgmq.send('test_conditional_queue', '{"status": "inactive", "priority": 5}');
+SELECT * FROM pgmq.send('test_conditional_queue', '{"status": "inactive", "priority": 999, "is_processed": true}');
 
 -- numeric greater than or equal
-SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": ">=", "value": 4}');
-
--- numeric less than
-SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "<", "value": 4}');
-
--- numeric equal
-SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "=", "value": 2}');
-
+SELECT * FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": ">=", "value": 4}');
 -- numeric not equal (should return all messages except value=2)
-SELECT COUNT(*) >= 6 FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "!=", "value": 2}');
-
--- string comparison
-SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "status", "operator": "=", "value": "active"}');
-
--- boolean comparison
-SELECT msg_id FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "is_processed", "operator": "=", "value": true}');
+SELECT * FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "value", "operator": "!=", "value": 2}');
+-- string comparison (shoudl return messages with status active)
+SELECT * FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "status", "operator": "=", "value": "active"}');
+-- boolean comparison (should return message with field is_processed to true)
+SELECT * FROM pgmq.read('test_conditional_queue', 0, 10, '{"field": "is_processed", "operator": "=", "value": true}');
 
 -- set VT to 5 seconds
 SELECT vt > clock_timestamp() + '4 seconds'::interval

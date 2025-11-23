@@ -167,8 +167,6 @@ BEGIN
         qtable, condition_clause, qtable, make_interval(secs => vt)
     );
     
-    RAISE NOTICE 'Final SQL: %', sql;
-    
     RETURN QUERY EXECUTE sql USING qty;
 END;
 $$ LANGUAGE plpgsql;
