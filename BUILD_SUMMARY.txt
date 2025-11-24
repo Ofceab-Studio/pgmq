@@ -1,0 +1,36 @@
+========================================
+PGMQ Docker Image Build Summary
+========================================
+
+VERSION: 1.9.0
+FEATURE: Advanced JSON Filtering
+
+CHANGES MADE:
+1. Updated pgmq.control: default_version = '1.9.0'
+2. Created migration: pgmq--1.8.0--1.9.0.sql
+3. Added build_message_filter() helper function
+4. Updated read() and read_with_poll() functions
+
+BUILD COMMAND:
+  ./build-pgmq-image.sh [PG_VERSION] [TAG_VERSION]
+  
+  Example:
+  ./build-pgmq-image.sh 18 1.9.0
+
+MANUAL BUILD:
+  1. ./images/pgmq-pg/replace-pg-version.sh 18 ./images/pgmq-pg/Dockerfile.in ./images/pgmq-pg/Dockerfile
+  2. docker build -f ./images/pgmq-pg/Dockerfile -t pgmq/pg18-pgmq:1.9.0 .
+
+TEST COMMAND:
+  docker run -d --name pgmq -e POSTGRES_PASSWORD=password -p 5432:5432 pgmq/pg18-pgmq:1.9.0
+  docker exec -it pgmq psql -U postgres
+
+NEW FEATURES:
+  - Comparison operators: >, >=, <, <=, =, !=, <>, exists
+  - Nested field support: "user.age"
+  - Backward compatible with simple containment
+
+DOCUMENTATION:
+  - BUILD_DOCKER_IMAGE.md (detailed guide)
+  - QUICK_BUILD_GUIDE.md (quick reference)
+  - TESTING_ADVANCED_FILTERING.md (testing guide)

@@ -1,0 +1,54 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 784B done
+#1 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 1)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/postgres:18-bookworm
+#2 DONE 0.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [builder 1/5] FROM docker.io/library/postgres:18-bookworm@sha256:c09662eac85a25066659be643377e337f072f02b244cf7da1caa8d3440c28c0c
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 5.68kB done
+#5 DONE 0.0s
+
+#6 [stage-1 2/5] COPY --from=builder /usr/share/postgresql/18/extension /usr/share/postgresql/18/extension
+#6 CACHED
+
+#7 [builder 2/5] RUN apt-get update     && apt-get install -y 	ca-certificates 	clang 	curl 	gcc 	git 	libssl-dev 	make 	pkg-config 	postgresql-server-dev-18
+#7 CACHED
+
+#8 [builder 3/5] COPY ./pgmq-extension pgmq-extension
+#8 CACHED
+
+#9 [builder 4/5] RUN cd pgmq-extension && make && make install
+#9 CACHED
+
+#10 [builder 5/5] RUN cd pgmq-extension && make install-pg-partman
+#10 CACHED
+
+#11 [stage-1 3/5] COPY --from=builder /usr/lib/postgresql/18/lib /usr/lib/postgresql/18/lib
+#11 CACHED
+
+#12 [stage-1 4/5] RUN apt-get update     && apt-get install -y ca-certificates
+#12 CACHED
+
+#13 [stage-1 5/5] COPY ./images/pgmq-pg/postgresql.conf /usr/share/postgresql/18/postgresql.conf.sample
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers done
+#14 writing image sha256:879d4c4f1dd601c8b1180ecf6d8c7f96590e1cc47c1507c44740d58b4070ffb8 done
+#14 naming to docker.io/pgmq/pg18-pgmq:1.9.0 done
+#14 naming to docker.io/pgmq/pg18-pgmq:latest done
+#14 DONE 0.0s
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 1)
