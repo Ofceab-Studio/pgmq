@@ -6,49 +6,149 @@
 #1 DONE 0.0s
 
 #2 [internal] load metadata for docker.io/library/postgres:18-bookworm
-#2 DONE 0.8s
+#2 ...
 
-#3 [internal] load .dockerignore
-#3 transferring context: 2B done
+#3 [auth] library/postgres:pull token for registry-1.docker.io
 #3 DONE 0.0s
 
-#4 [builder 1/5] FROM docker.io/library/postgres:18-bookworm@sha256:c09662eac85a25066659be643377e337f072f02b244cf7da1caa8d3440c28c0c
+#2 [internal] load metadata for docker.io/library/postgres:18-bookworm
+#2 DONE 2.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
 #4 DONE 0.0s
 
-#5 [internal] load build context
-#5 transferring context: 5.68kB done
+#5 [builder 1/5] FROM docker.io/library/postgres:18-bookworm@sha256:c09662eac85a25066659be643377e337f072f02b244cf7da1caa8d3440c28c0c
 #5 DONE 0.0s
 
-#6 [stage-1 2/5] COPY --from=builder /usr/share/postgresql/18/extension /usr/share/postgresql/18/extension
-#6 CACHED
+#6 [internal] load build context
+#6 transferring context: 49.42kB done
+#6 DONE 0.0s
 
 #7 [builder 2/5] RUN apt-get update     && apt-get install -y 	ca-certificates 	clang 	curl 	gcc 	git 	libssl-dev 	make 	pkg-config 	postgresql-server-dev-18
 #7 CACHED
 
 #8 [builder 3/5] COPY ./pgmq-extension pgmq-extension
-#8 CACHED
+#8 DONE 0.0s
 
 #9 [builder 4/5] RUN cd pgmq-extension && make && make install
-#9 CACHED
+#9 0.162 cp sql/pgmq.sql sql/pgmq--1.9.0.sql
+#9 0.194 /bin/mkdir -p '/usr/share/postgresql/18/extension'
+#9 0.195 /bin/mkdir -p '/usr/share/postgresql/18/extension'
+#9 0.195 /usr/bin/install -c -m 644 .//pgmq.control '/usr/share/postgresql/18/extension/'
+#9 0.199 /usr/bin/install -c -m 644 .//sql/pgmq--0.10.2--0.11.1.sql .//sql/pgmq--0.11.1--0.11.2.sql .//sql/pgmq--0.11.2--0.12.0.sql .//sql/pgmq--0.12.0--0.12.1.sql .//sql/pgmq--0.12.1--0.13.0.sql .//sql/pgmq--0.13.0--0.13.1.sql .//sql/pgmq--0.13.1--0.14.0.sql .//sql/pgmq--0.14.0--0.14.1.sql .//sql/pgmq--0.14.1--0.14.2.sql .//sql/pgmq--0.14.2--0.14.3.sql .//sql/pgmq--0.14.3--0.15.0.sql .//sql/pgmq--0.15.0--0.15.1.sql .//sql/pgmq--0.15.1--0.16.0.sql .//sql/pgmq--0.16.0--0.17.0.sql .//sql/pgmq--0.17.0--0.18.0.sql .//sql/pgmq--0.18.0--0.19.0.sql .//sql/pgmq--0.19.0--0.20.0.sql .//sql/pgmq--0.20.0--0.21.0.sql .//sql/pgmq--0.21.0--0.22.0.sql .//sql/pgmq--0.22.0--0.23.0.sql .//sql/pgmq--0.23.0--0.24.0.sql .//sql/pgmq--0.24.0--0.25.0.sql .//sql/pgmq--0.25.0--0.26.0.sql .//sql/pgmq--0.26.0--0.27.0.sql .//sql/pgmq--0.27.0--0.28.0.sql .//sql/pgmq--0.28.0--0.29.0.sql .//sql/pgmq--0.29.0--0.30.0.sql .//sql/pgmq--0.30.0--0.31.0.sql .//sql/pgmq--0.31.0--0.31.1.sql .//sql/pgmq--0.31.1--0.32.0.sql .//sql/pgmq--0.32.0--0.32.1.sql .//sql/pgmq--0.32.1--0.32.2.sql .//sql/pgmq--0.32.2--0.32.3.sql .//sql/pgmq--0.32.3--0.33.0.sql .//sql/pgmq--0.33.0--0.33.1.sql .//sql/pgmq--0.33.1--0.33.2.sql .//sql/pgmq--0.33.2--0.33.3.sql .//sql/pgmq--0.33.3--1.0.0.sql .//sql/pgmq--0.7.3--0.7.4.sql .//sql/pgmq--0.7.4--0.7.5.sql .//sql/pgmq--0.7.5--0.8.0.sql .//sql/pgmq--0.8.0--0.8.1.sql .//sql/pgmq--0.8.1--0.9.0.sql .//sql/pgmq--0.9.0--0.10.2.sql .//sql/pgmq--1.0.0--1.1.0.sql .//sql/pgmq--1.1.0--1.1.1.sql .//sql/pgmq--1.1.1--1.2.0.sql .//sql/pgmq--1.2.0--1.2.1.sql .//sql/pgmq--1.2.1--1.3.0.sql .//sql/pgmq--1.3.0--1.3.1.sql .//sql/pgmq--1.3.1--1.3.2.sql .//sql/pgmq--1.3.2--1.3.3.sql .//sql/pgmq--1.3.3--1.4.0.sql .//sql/pgmq--1.4.0--1.4.1.sql .//sql/pgmq--1.4.1--1.4.2.sql .//sql/pgmq--1.4.2--1.4.3.sql .//sql/pgmq--1.4.3--1.4.4.sql .//sql/pgmq--1.4.4--1.4.5.sql .//sql/pgmq--1.4.5--1.5.0.sql .//sql/pgmq--1.5.0--1.5.1.sql .//sql/pgmq--1.5.1--1.5.2.sql .//sql/pgmq--1.5.2--1.6.0.sql .//sql/pgmq--1.6.0--1.6.1.sql .//sql/pgmq--1.6.1--1.7.0.sql .//sql/pgmq--1.7.0--1.7.1.sql .//sql/pgmq--1.7.1--1.8.0.sql .//sql/pgmq--1.8.0--1.9.0.sql .//sql/pgmq--1.9.0.sql  '/usr/share/postgresql/18/extension/'
+#9 DONE 0.2s
 
 #10 [builder 5/5] RUN cd pgmq-extension && make install-pg-partman
-#10 CACHED
+#10 0.188 git clone https://github.com/pgpartman/pg_partman.git && \
+#10 0.188 cd pg_partman && \
+#10 0.188 git checkout v5.1.0 && \
+#10 0.188 make && \
+#10 0.188 make install PG_CONFIG=pg_config && \
+#10 0.188 cd ../ && rm -rf pg_partman
+#10 0.190 Cloning into 'pg_partman'...
+#10 7.313 Note: switching to 'v5.1.0'.
+#10 7.313 
+#10 7.313 You are in 'detached HEAD' state. You can look around, make experimental
+#10 7.313 changes and commit them, and you can discard any commits you make in this
+#10 7.313 state without impacting any branches by switching back to a branch.
+#10 7.313 
+#10 7.313 If you want to create a new branch to retain commits you create, you may
+#10 7.313 do so (now or later) by using -c with the switch command. Example:
+#10 7.313 
+#10 7.313   git switch -c <new-branch-name>
+#10 7.313 
+#10 7.313 Or undo this operation with:
+#10 7.313 
+#10 7.313   git switch -
+#10 7.313 
+#10 7.313 Turn off this advice by setting config variable advice.detachedHead to false
+#10 7.313 
+#10 7.313 HEAD is now at 5d955cf 5.1.0 beta & 4.8.0 (#615)
+#10 7.314 make[1]: Entering directory '/pgmq-extension/pg_partman'
+#10 7.347 cat sql/types/types.sql sql/tables/tables.sql sql/functions/apply_cluster.sql sql/functions/apply_constraints.sql sql/functions/apply_privileges.sql sql/functions/autovacuum_off.sql sql/functions/autovacuum_reset.sql sql/functions/calculate_time_partition_info.sql sql/functions/check_control_type.sql sql/functions/check_default.sql sql/functions/check_name_length.sql sql/functions/check_subpartition_limits.sql sql/functions/check_subpart_sameconfig.sql sql/functions/create_parent.sql sql/functions/create_partition_id.sql sql/functions/create_partition_time.sql sql/functions/create_sub_parent.sql sql/functions/drop_constraints.sql sql/functions/drop_partition_id.sql sql/functions/drop_partition_time.sql sql/functions/dump_partitioned_table_definition.sql sql/functions/inherit_replica_identity.sql sql/functions/inherit_template_properties.sql sql/functions/partition_data_id.sql sql/functions/partition_data_time.sql sql/functions/partition_gap_fill.sql sql/functions/reapply_privileges.sql sql/functions/run_maintenance.sql sql/functions/show_partition_info.sql sql/functions/show_partition_name.sql sql/functions/show_partitions.sql sql/functions/stop_sub_partition.sql sql/functions/undo_partition.sql sql/procedures/partition_data_proc.sql sql/procedures/reapply_constraints_proc.sql sql/procedures/run_analyze.sql sql/procedures/run_maintenance_proc.sql sql/procedures/undo_partition_proc.sql > sql/pg_partman--5.1.0.sql
+#10 7.348 gcc -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wimplicit-fallthrough=3 -Wcast-function-type -Wshadow=compatible-local -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -Wno-format-truncation -Wno-stringop-truncation -g -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -fno-omit-frame-pointer -fPIC -fvisibility=hidden -I. -I./ -I/usr/include/postgresql/18/server -I/usr/include/postgresql/internal -Wdate-time -D_FORTIFY_SOURCE=2 -D_GNU_SOURCE  -I/usr/include/libxml2     -c -o src/pg_partman_bgw.o src/pg_partman_bgw.c
+#10 7.537 gcc -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Werror=vla -Wendif-labels -Wmissing-format-attribute -Wimplicit-fallthrough=3 -Wcast-function-type -Wshadow=compatible-local -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -Wno-format-truncation -Wno-stringop-truncation -g -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -fno-omit-frame-pointer -fPIC -fvisibility=hidden src/pg_partman_bgw.o -L/usr/lib/x86_64-linux-gnu -Wl,-z,relro -Wl,-z,now  -Wl,--as-needed -fvisibility=hidden -shared -o src/pg_partman_bgw.so
+#10 7.555 /usr/bin/clang-19 -Wno-ignored-attributes -fno-strict-aliasing -fwrapv -fexcess-precision=standard -Wno-unused-command-line-argument -Wno-compound-token-split-by-macro -Wno-format-truncation -O2  -I. -I./ -I/usr/include/postgresql/18/server -I/usr/include/postgresql/internal -Wdate-time -D_FORTIFY_SOURCE=2 -D_GNU_SOURCE  -I/usr/include/libxml2    -flto=thin -emit-llvm -c -o src/pg_partman_bgw.bc src/pg_partman_bgw.c
+#10 7.714 make[1]: Leaving directory '/pgmq-extension/pg_partman'
+#10 7.715 make[1]: Entering directory '/pgmq-extension/pg_partman'
+#10 7.747 /bin/mkdir -p '/usr/share/postgresql/18/extension'
+#10 7.748 /bin/mkdir -p '/usr/share/postgresql/18/extension'
+#10 7.748 /bin/mkdir -p '/usr/lib/postgresql/18/lib'
+#10 7.749 /bin/mkdir -p '/usr/share/doc/postgresql-doc-18/extension'
+#10 7.762 /bin/mkdir -p '/usr/lib/postgresql/18/bin'
+#10 7.764 /usr/bin/install -c -m 644 .//pg_partman.control '/usr/share/postgresql/18/extension/'
+#10 7.766 /usr/bin/install -c -m 644 .//updates/pg_partman--0.1.0--0.1.1.sql .//updates/pg_partman--0.1.1--0.1.2.sql .//updates/pg_partman--0.1.2--0.2.0.sql .//updates/pg_partman--0.2.0--0.3.0.sql .//updates/pg_partman--0.3.0--0.3.1.sql .//updates/pg_partman--0.3.1--0.3.2.sql .//updates/pg_partman--0.3.2--0.4.0.sql .//updates/pg_partman--0.4.0--0.4.1.sql .//updates/pg_partman--0.4.1--0.4.2.sql .//updates/pg_partman--0.4.2--1.0.0.sql .//updates/pg_partman--1.0.0--1.1.0.sql .//updates/pg_partman--1.1.0--1.2.0.sql .//updates/pg_partman--1.2.0--1.3.0.sql .//updates/pg_partman--1.3.0--1.4.0.sql .//updates/pg_partman--1.4.0--1.4.1.sql .//updates/pg_partman--1.4.1--1.4.2.sql .//updates/pg_partman--1.4.2--1.4.3.sql .//updates/pg_partman--1.4.3--1.4.4.sql .//updates/pg_partman--1.4.4--1.4.5.sql .//updates/pg_partman--1.4.5--1.5.0.sql .//updates/pg_partman--1.5.0--1.5.1.sql .//updates/pg_partman--1.5.1--1.6.0.sql .//updates/pg_partman--1.6.0--1.6.1.sql .//updates/pg_partman--1.6.1--1.7.0.sql .//updates/pg_partman--1.7.0--1.7.1.sql .//updates/pg_partman--1.7.1--1.7.2.sql .//updates/pg_partman--1.7.2--1.8.0.sql .//updates/pg_partman--1.8.0--1.8.1.sql .//updates/pg_partman--1.8.1--1.8.2.sql .//updates/pg_partman--1.8.2--1.8.3.sql .//updates/pg_partman--1.8.3--1.8.4.sql .//updates/pg_partman--1.8.4--1.8.5.sql .//updates/pg_partman--1.8.5--1.8.6.sql .//updates/pg_partman--1.8.6--1.8.7.sql .//updates/pg_partman--1.8.7--1.8.8.sql .//updates/pg_partman--1.8.7--2.0.0.sql .//updates/pg_partman--1.8.8--2.0.0.sql .//updates/pg_partman--2.0.0--2.1.0.sql .//updates/pg_partman--2.1.0--2.2.0.sql .//updates/pg_partman--2.2.0--2.2.1.sql .//updates/pg_partman--2.2.1--2.2.2.sql .//updates/pg_partman--2.2.2--2.2.3.sql .//updates/pg_partman--2.2.3--2.3.0.sql .//updates/pg_partman--2.3.0--2.3.1.sql .//updates/pg_partman--2.3.1--2.3.2.sql .//updates/pg_partman--2.3.2--2.3.3.sql .//updates/pg_partman--2.3.3--2.3.4.sql .//updates/pg_partman--2.3.4--2.4.0.sql .//updates/pg_partman--2.4.0--2.4.1.sql .//updates/pg_partman--2.4.1--2.5.0.sql .//updates/pg_partman--2.5.0--2.5.1.sql .//updates/pg_partman--2.5.1--2.6.0.sql .//updates/pg_partman--2.6.0--2.6.1.sql .//updates/pg_partman--2.6.1--2.6.2.sql .//updates/pg_partman--2.6.2--2.6.3.sql .//updates/pg_partman--2.6.3--2.6.4.sql .//updates/pg_partman--2.6.4--3.0.0.sql .//updates/pg_partman--3.0.0--3.0.1.sql .//updates/pg_partman--3.0.1--3.0.2.sql .//updates/pg_partman--3.0.2--3.1.0.sql .//updates/pg_partman--3.1.0--3.1.1.sql .//updates/pg_partman--3.1.1--3.1.2.sql .//updates/pg_partman--3.1.2--3.1.3.sql .//updates/pg_partman--3.1.3--3.2.0.sql .//updates/pg_partman--3.2.0--3.2.1.sql .//updates/pg_partman--3.2.1--4.0.0.sql .//updates/pg_partman--4.0.0--4.1.0.sql .//updates/pg_partman--4.1.0--4.2.0.sql .//updates/pg_partman--4.2.0--4.2.1.sql .//updates/pg_partman--4.2.1--4.2.2.sql .//updates/pg_partman--4.2.2--4.3.0.sql .//updates/pg_partman--4.3.0--4.3.1.sql .//updates/pg_partman--4.3.1--4.4.0.sql .//updates/pg_partman--4.4.0--4.5.0.sql .//updates/pg_partman--4.4.1--4.5.0.sql .//updates/pg_partman--4.5.0--4.5.1.sql .//updates/pg_partman--4.5.1--4.6.0.sql .//updates/pg_partman--4.6.0--4.6.1.sql .//updates/pg_partman--4.6.1--4.6.2.sql .//updates/pg_partman--4.6.2--4.7.0.sql .//updates/pg_partman--4.7.0--4.7.1.sql .//updates/pg_partman--4.7.1--4.7.2.sql .//updates/pg_partman--4.7.2--4.7.3.sql .//updates/pg_partman--4.7.3--4.7.4.sql .//updates/pg_partman--4.7.4--4.8.0.sql .//updates/pg_partman--4.8.0--5.0.0.sql .//updates/pg_partman--5.0.0--5.0.1.sql .//updates/pg_partman--5.0.1--5.1.0.sql .//sql/pg_partman--5.1.0.sql  '/usr/share/postgresql/18/extension/'
+#10 7.773 /usr/bin/install -c -m 755  src/pg_partman_bgw.so '/usr/lib/postgresql/18/lib/'
+#10 7.777 /bin/mkdir -p '/usr/lib/postgresql/18/lib/bitcode/src/pg_partman_bgw'
+#10 7.779 /bin/mkdir -p '/usr/lib/postgresql/18/lib/bitcode'/src/pg_partman_bgw/src/
+#10 7.779 /usr/bin/install -c -m 644 src/pg_partman_bgw.bc '/usr/lib/postgresql/18/lib/bitcode'/src/pg_partman_bgw/src/
+#10 7.780 cd '/usr/lib/postgresql/18/lib/bitcode' && /usr/lib/llvm-19/bin/llvm-lto -thinlto -thinlto-action=thinlink -o src/pg_partman_bgw.index.bc src/pg_partman_bgw/src/pg_partman_bgw.bc
+#10 7.795 /usr/bin/install -c -m 644 .//doc/fix_missing_procedures.md .//doc/migrate_to_declarative.md .//doc/migrate_to_partman.md .//doc/pg_partman_5.0.1_upgrade.md .//doc/pg_partman_howto.md .//doc/pg_partman.md '/usr/share/doc/postgresql-doc-18/extension/'
+#10 7.796 /usr/bin/install -c -m 755 .//bin/common/*.py '/usr/lib/postgresql/18/bin/'
+#10 7.798 make[1]: Leaving directory '/pgmq-extension/pg_partman'
+#10 DONE 7.8s
 
-#11 [stage-1 3/5] COPY --from=builder /usr/lib/postgresql/18/lib /usr/lib/postgresql/18/lib
-#11 CACHED
+#5 [builder 1/5] FROM docker.io/library/postgres:18-bookworm@sha256:c09662eac85a25066659be643377e337f072f02b244cf7da1caa8d3440c28c0c
+#5 CACHED
 
-#12 [stage-1 4/5] RUN apt-get update     && apt-get install -y ca-certificates
-#12 CACHED
+#11 [stage-1 2/5] COPY --from=builder /usr/share/postgresql/18/extension /usr/share/postgresql/18/extension
+#11 DONE 0.1s
 
-#13 [stage-1 5/5] COPY ./images/pgmq-pg/postgresql.conf /usr/share/postgresql/18/postgresql.conf.sample
-#13 CACHED
+#12 [stage-1 3/5] COPY --from=builder /usr/lib/postgresql/18/lib /usr/lib/postgresql/18/lib
+#12 DONE 0.3s
 
-#14 exporting to image
-#14 exporting layers done
-#14 writing image sha256:879d4c4f1dd601c8b1180ecf6d8c7f96590e1cc47c1507c44740d58b4070ffb8 done
-#14 naming to docker.io/pgmq/pg18-pgmq:1.9.0 done
-#14 naming to docker.io/pgmq/pg18-pgmq:latest done
+#13 [stage-1 4/5] RUN apt-get update     && apt-get install -y ca-certificates
+#13 0.887 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#13 0.887 Get:2 http://apt.postgresql.org/pub/repos/apt bookworm-pgdg InRelease [107 kB]
+#13 1.425 Get:3 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#13 1.426 Get:4 http://apt.postgresql.org/pub/repos/apt bookworm-pgdg/main amd64 Packages [404 kB]
+#13 1.591 Get:5 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#13 1.744 Get:6 http://deb.debian.org/debian bookworm/main amd64 Packages [8,791 kB]
+#13 5.234 Get:7 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6,924 B]
+#13 5.353 Get:8 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [287 kB]
+#13 5.955 Fetched 9,851 kB in 6s (1,697 kB/s)
+#13 5.955 Reading package lists...
+#13 6.392 Reading package lists...
+#13 6.810 Building dependency tree...
+#13 6.938 Reading state information...
+#13 7.114 The following NEW packages will be installed:
+#13 7.115   ca-certificates
+#13 7.527 0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+#13 7.527 Need to get 155 kB of archives.
+#13 7.527 After this operation, 396 kB of additional disk space will be used.
+#13 7.527 Get:1 http://deb.debian.org/debian bookworm/main amd64 ca-certificates all 20230311+deb12u1 [155 kB]
+#13 8.001 debconf: delaying package configuration, since apt-utils is not installed
+#13 8.024 Fetched 155 kB in 1s (200 kB/s)
+#13 8.040 Selecting previously unselected package ca-certificates.
+#13 8.040 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 12163 files and directories currently installed.)
+#13 8.045 Preparing to unpack .../ca-certificates_20230311+deb12u1_all.deb ...
+#13 8.046 Unpacking ca-certificates (20230311+deb12u1) ...
+#13 8.085 Setting up ca-certificates (20230311+deb12u1) ...
+#13 8.138 debconf: unable to initialize frontend: Dialog
+#13 8.138 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#13 8.138 debconf: falling back to frontend: Readline
+#13 8.144 debconf: unable to initialize frontend: Readline
+#13 8.144 debconf: (This frontend requires a controlling tty.)
+#13 8.144 debconf: falling back to frontend: Teletype
+#13 8.426 Updating certificates in /etc/ssl/certs...
+#13 8.802 142 added, 0 removed; done.
+#13 8.828 Processing triggers for ca-certificates (20230311+deb12u1) ...
+#13 8.831 Updating certificates in /etc/ssl/certs...
+#13 9.132 0 added, 0 removed; done.
+#13 9.132 Running hooks in /etc/ca-certificates/update.d...
+#13 9.132 done.
+#13 DONE 9.2s
+
+#14 [stage-1 5/5] COPY ./images/pgmq-pg/postgresql.conf /usr/share/postgresql/18/postgresql.conf.sample
 #14 DONE 0.0s
+
+#15 exporting to image
+#15 exporting layers 0.1s done
+#15 writing image sha256:a1a96f3fbd82e3d824eef4ad9aa60fb469eadbb0956a006195284698847abc8b done
+#15 naming to docker.io/pgmq/pg18-pgmq:1.9.0 done
+#15 naming to docker.io/pgmq/pg18-pgmq:latest done
+#15 DONE 0.2s
 
  [33m1 warning found (use docker --debug to expand):
 [0m - FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 1)

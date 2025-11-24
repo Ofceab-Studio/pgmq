@@ -26,7 +26,7 @@ SELECT pgmq.set_vt('test_filter', :msg3, 0);
 
 -- Test 2: Greater than operator
 SELECT 'Test 2: age > 20' AS test;
-SELECT msg_id, message FROM pgmq.read('test_filter', 0, 10, '{"field": "age", "operator": ">=", "value": 20}');
+SELECT msg_id, message FROM pgmq.read('test_filter', 0, 10, '{"field": "age", "operator": "<=", "value": 20}');
 -- Expected: Should return Alice (25) and Bob (30)
 
 -- Reset VT
